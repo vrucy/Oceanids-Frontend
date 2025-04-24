@@ -1,0 +1,86 @@
+/* You can add global styles to this file, and also import other style files */
+// @import '~bootstrap/dist/css/bootstrap.css';
+
+
+html,
+body {
+    height: 100%;
+}
+
+html,
+body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.leaflet-control-container,
+.leaflet-top,
+.leaflet-left {
+    // position: absolute;
+    top: 40%;
+}
+
+.map {
+    position: relative;
+    width: 100%;
+    height: 100%
+}
+
+.map-frame {
+    height: 100%;
+    border: 2px solid black;
+}
+
+.info {
+    background-color: rgba(64, 64, 64, 0.9); /* Darker grey background with more transparency */
+    padding: 12px; /* Increased padding for better spacing */
+    border-radius: 5px;
+    border: 2px solid black; /* Black frame */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slightly darker shadow */
+    font-size: 16px; /* Increased font size */
+    right: 10px;
+}
+
+.legend i {
+    width: 15px; /* Increased width of symbols */
+    height: 15px; /* Increased height of symbols */
+    border-radius: 4px; /* Adjusted for larger symbols */
+    margin-right: 12px; /* Increased spacing between symbols and text */
+    display: inline-block;
+}
+
+.legend-title {
+    font-size: 16px; /* Increased font size for the title */
+    font-weight: bold; /* Made the title bold */
+    margin-bottom: 10px; /* Added spacing below the title */
+    text-align: center; /* Center-align the title */
+    color: white; /* Changed title color to white */
+}
+
+.legend-label {
+    font-size: 16px; /* Increased font size for labels */
+    line-height: 1.5; /* Improved line spacing */
+    color: white; /* Changed label color to white */
+}
+
+.custom-form-field .mat-form-field-wrapper {
+    border-radius: 8px !important;
+    overflow: hidden;
+}
+
+.custom-select .mat-select-trigger {
+    border-radius: 8px !important;
+    border: 1px solid #ccc;
+}
+
+.custom-select .mat-select-panel {
+    border-radius: 8px !important;
+}
+
+ngx-charts-legend {
+    display: block !important;
+}

@@ -1,0 +1,21 @@
+.menu-button {
+    position: absolute;
+    z-index: 1000;
+    top: 15px;
+    left: 15px;
+}
+
+.chart-sidenav {
+    width: 40%;
+}
+
+button.disabled {
+    pointer-events: none;
+    /* Prevent interactions */
+    opacity: 0.3;
+    /* Make it appear greyed out */
+}
+
+.chart-legend {
+    display: block !important;
+}
