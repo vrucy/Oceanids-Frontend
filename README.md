@@ -1,12 +1,24 @@
 # OceanidsPlatform
-This repository contains the Angular app that runs the Oceanids platform.
 
-## Overview
 The Oceanids platform is an Angular-based web application designed to provide data visualization and analysis tools for coastal and environmental monitoring. It integrates various components and services to deliver a seamless user experience.
+
+### 1. **Setting Up the Development Environment**
+- Install dependencies:
+  ```
+  npm install --force
+  ```
+- Run the development server:
+  ```
+  ng serve
+  ```
+  The app will be available at `http://localhost:4200`.
 
 ---
 
 ## Components
+
+An Angular app is build with modular components, each component has it's own TypeScript, HTML and CSS file.
+
 ### 1. **Map Component**
 - **Path**: `src/app/components/map/map.component.ts`
 - **Description**: Displays an interactive map with various layers and tools for data visualization.
@@ -30,14 +42,21 @@ The Oceanids platform is an Angular-based web application designed to provide da
 ---
 
 ## Services
+
+In Angular, API interactions are managed by services. 
+
 ### 1. **City Service**
 - **Path**: `src/app/services/city.service.ts`
 - **Description**: Handles API interactions related to cities and their data services.
 - **Key Methods**:
   - `getCities()`: Fetches the list of available cities.
   - `getServicesForCity(city: string)`: Retrieves data services for a specific city.
+  - `getGeoJson(service: string, city: string, dataType: string)`: Fetches GeoJson layers.
   - `getTimeseriesJson(city: string, service: string, dataId: string)`: Fetches time-series data in JSON format.
   - `getTimeseriesCsv(city: string, service: string, dataId: string)`: Fetches time-series data as a CSV file.
+  - `getTimeseriesImages(city: string, service: string, dataId: string)`: Fetches time-series data as base64 image.
+  - `getTimeseriesJpg(city: string, service: string, dataId: string)`: Fetches time-series data as JPG file.
+  - `postCustomGroundMotionPolygon(geoJson: any, service: string, city: string)`: Posts a new polygon for extracting ground motion points.
 
 ### 2. **Map Service**
 - **Path**: `src/app/services/map.service.ts`
@@ -46,14 +65,7 @@ The Oceanids platform is an Angular-based web application designed to provide da
   - `initMap(map: L.Map)`: Initializes the map with base layers and controls.
   - `drawToolbar(drawnItems: L.FeatureGroup, isPolyEnabled?: boolean)`: Adds a drawing toolbar to the map.
 
-### 3. **Shared Data Service**
-- **Path**: `src/app/services/sharedData.service.ts`
-- **Description**: Manages shared state across components using RxJS BehaviorSubjects.
-- **Key Methods**:
-  - `setMarkerPlaced(isPlaced: boolean)`: Updates the marker placement state.
-  - `setSelectedLatLon(latLon: { lat: any; lon: any })`: Updates the selected latitude and longitude.
-
-### 4. **Loading Service**
+### 3. **Loading Service**
 - **Path**: `src/app/services/loading.service.ts`
 - **Description**: Manages the loading state of the application.
 - **Key Methods**:
@@ -81,32 +93,22 @@ The Oceanids platform is an Angular-based web application designed to provide da
 ---
 
 ## Guidelines for Making Changes
-### 1. **Setting Up the Development Environment**
-- Install dependencies:
-  ```
-  npm install --force
-  ```
-- Run the development server:
-  ```
-  ng serve
-  ```
-  The app will be available at `http://localhost:4200`.
 
-### 2. **Adding a New Component**
+### 1. **Adding a New Component**
 - Use Angular CLI to generate a new component:
   ```
   ng generate component <component-name>
   ```
 - Add the component to the appropriate module.
 
-### 3. **Adding a New Service**
+### 2. **Adding a New Service**
 - Use Angular CLI to generate a new service:
   ```
   ng generate service <service-name>
   ```
 - Register the service in the `providers` array of the module if necessary.
 
-### 4. **Modifying Existing Components or Services**
+### 3. **Modifying Existing Components or Services**
 - Locate the file in the `src/app` directory.
 - Make changes and ensure the functionality is preserved.
 - Run unit tests to validate changes:
@@ -114,11 +116,11 @@ The Oceanids platform is an Angular-based web application designed to provide da
   ng test
   ```
 
-### 5. **Testing**
+### 4. **Testing**
 - Write unit tests for new features or changes.
 - Use the `src/app/**/*.spec.ts` files for test cases.
 
-### 6. **Building for Production**
+### 5. **Building for Production**
 - Build the app for production:
   ```
   ng build --prod
