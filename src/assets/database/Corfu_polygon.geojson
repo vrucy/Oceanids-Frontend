@@ -1,8 +1,0 @@
-{
-"type": "FeatureCollection",
-"name": "Heraklion_polygon",
-"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-"features": [
-{ "type": "Feature", "properties": { }, "geometry": { "type": "Polygon", "coordinates": [ [ [ 19.873771413872614, 39.459204301744315 ], [ 19.869758909412823, 39.434736303864199 ], [ 19.947765794045079, 39.421525479667672 ], [ 19.951478227477729, 39.445290479201276 ], [ 19.873771413872614, 39.459204301744315 ] ] ] } }
-]
-}
