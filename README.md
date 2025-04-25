@@ -20,8 +20,9 @@ The Oceanids platform is an Angular-based web application designed to provide da
 ### **Pushing Changes to the Production App**
 The Angular application is hosted as an Azure Static Web App at https://black-island-0597a3903.6.azurestaticapps.net/. 
 
-The app is re-deployed automatically whenever:
-- **changes are pushed to the `main`branch and include the tag `#build`**
+The app is deployed with [Github Actions](https://github.com/OHB-DS/Oceanids-Frontend/actions). Workflow triggers are events that cause a workflow to run.  
+In this case, the workflow to build and deploy the app is trigger whenever:
+- **changes are pushed or a pull request is merged to the `main` branch.**
 
 Make sure to first test the changes in a local environment!
 
