@@ -1,4 +1,6 @@
 # OceanidsPlatform
+[![Azure Static Web Apps CI/CD](https://github.com/OHB-DS/Oceanids-Frontend/actions/workflows/azure-static-web-apps-black-island-0597a3903.yml/badge.svg?branch=main)](https://github.com/OHB-DS/Oceanids-Frontend/actions/workflows/azure-static-web-apps-black-island-0597a3903.yml)
+
 
 The Oceanids platform is an Angular-based web application designed to provide data visualization and analysis tools for coastal and environmental monitoring. It integrates various components and services to deliver a seamless user experience.
 
