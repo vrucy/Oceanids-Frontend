@@ -5,11 +5,9 @@ The Oceanids platform is an Angular-based web application designed to provide da
 
 ![image](https://github.com/user-attachments/assets/0ca65912-af79-4e26-b065-cc785356dfb5)
 
-### **Setting Up the Development Environment Locally**
+### **Setting Up and Running the App Locally**
 - Install dependencies:
-  ```
-  npm install --force
-  ```
+  `npm install` (if it throws an error try `npm install --force`)
 - Run the development server:
   ```
   ng serve
@@ -18,17 +16,21 @@ The Oceanids platform is an Angular-based web application designed to provide da
 
 ---
 
-### **Pushing Changes to the Production App**
-The Angular application is hosted as an Azure Static Web App at https://black-island-0597a3903.6.azurestaticapps.net/. 
+### **Making Changes to the Test and Production Apps**
+The Angular application is hosted as an Azure Static Web App.
+The app is deployed with [Github Actions](https://github.com/OHB-DS/Oceanids-Frontend/actions). 
+A new Github workflow is triggered when changes are pushed to the `dev` or `main` branches:
+- **changes pushed to the `dev` branch are applied to the TEST app.**: https://purple-hill-044e4e503.6.azurestaticapps.net/
+- **changes pushed to the `main` branch are applied to the PRODUCTION app.**: https://black-island-0597a3903.6.azurestaticapps.net/
 
-The app is deployed with [Github Actions](https://github.com/OHB-DS/Oceanids-Frontend/actions). Workflow triggers are events that cause a workflow to run.  
-In this case, the workflow to build and deploy the app is trigger whenever:
-- **changes are pushed or a pull request is merged to the `main` branch.**
-
-Make sure to first push your changes to the `dev`branch and test them in a local environment!
+Make sure to follow this procedure when making changes:
+- Work on the `dev` branch locally
+- Test your changes on `http://localhost:4200`
+- Push them to the `dev` branch so they are applied to the Test app
+- Check that the Test app works well
+- Make a Pull Request to merge the `dev` into the `main`
 
 ---
-
 
 ## Documentation
 
