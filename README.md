@@ -24,7 +24,7 @@ The app is deployed with [Github Actions](https://github.com/OHB-DS/Oceanids-Fro
 In this case, the workflow to build and deploy the app is trigger whenever:
 - **changes are pushed or a pull request is merged to the `main` branch.**
 
-Make sure to first test the changes in a local environment!
+Make sure to first push your changes to the `dev`branch and test them in a local environment!
 
 ---
 
