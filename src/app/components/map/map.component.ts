@@ -53,7 +53,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       service: this.fb.array([], Validators.required)
     });
     this.timeseries = { transectId: '', service: '', name: '', series: [] };
-  } 
+  }
 
   ngOnDestroy(): void {
     this.map?.off();
@@ -113,16 +113,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       //@ts-ignore
       citiesLayer.options.type = 'citiesArea';
       citiesLayer.addTo(this.drawnItems!);
-      // add zoom event listener to make popups reappear when zooming out
-      // this.map!.on('zoomend', () => {
-      //   if (this.map!.getZoom() <= 7) {
-      //     Object.values(this.cityPopups).forEach(popup => {
-      //       if (!this.map!.hasLayer(popup)) {
-      //         popup.addTo(this.map!);
-      //       }
-      //     });
-      //   }
-      // });
     });
 
     // listen for changes in the city selection
@@ -139,6 +129,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       concatMap(city => {
         this.cityDataServices = []
         return forkJoin([
+          //TODO: why is this null?
           of(null),
           this.fetchAvailableServices(city)
         ]);
@@ -340,6 +331,29 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
               this.geoJsonService.addGeoJsonGroundMotionLayer(result.geoJsonData, result.points, service, this.cityForm.get('city')?.value, this.drawnItems!, this, this.map!);
               // add drawing toolbox
               this.map?.addControl(this.mapService.drawToolbar(this.drawnItems!, true));
+              setTimeout(() => {
+                const polygonButton = document.querySelector('.leaflet-draw-draw-polygon') as HTMLElement;
+                const mapContainer = document.querySelector('.leaflet-container') as HTMLElement;
+
+                if (polygonButton && mapContainer) {
+                  const hint = document.createElement('div');
+                  hint.className = 'custom-tooltip-polygon';
+                  hint.innerText = 'Draw a new polygon to show ground motion displacements elsewhere';
+
+                  mapContainer.appendChild(hint);
+
+                  const rect = polygonButton.getBoundingClientRect();
+                  const mapRect = mapContainer.getBoundingClientRect();
+
+                  hint.style.position = 'absolute';
+                  hint.style.top = `${rect.top - mapRect.top - 25}px`;
+                  hint.style.left = `${rect.left - mapRect.left - 250}px`;
+
+                  setTimeout(() => {
+                    hint.remove();
+                  }, 2500);
+                }
+              }, 100);
               break;
 
             case 'wave_climate':
@@ -350,16 +364,17 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
               // add points
               this.geoJsonService.addGeoJsonWavesOrSeaLevelorAtmosphericLayer(result, service, this.cityForm.get('city')?.value, this.drawnItems!, this, this.map!);
               break;
-              case 'atmospheric_data':
-                // add points
-                this.geoJsonService.addGeoJsonWavesOrSeaLevelorAtmosphericLayer(result, service, this.cityForm.get('city')?.value, this.drawnItems!, this, this.map!);
-                break;
+            case 'atmospheric_data':
+              // add points
+              this.geoJsonService.addGeoJsonWavesOrSeaLevelorAtmosphericLayer(result, service, this.cityForm.get('city')?.value, this.drawnItems!, this, this.map!);
+
+              break;
             default:
               break;
           }
 
         });
-      // if checkbox is unchecked
+        // if checkbox is unchecked
       } else {
         const index = serviceArray.controls.findIndex(x => x.value.name === service);
         if (index !== -1) {
@@ -417,20 +432,20 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     let dataId = '';
     switch (this.selectedFilters.service) {
       case 'sea_level':
-      // sea level has multiple models (CMCC-CM2-VHR4 and EC-Earth3P-HR), so needs model keyword
-      dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.model + '_' + this.selectedFilters.timeRange + '_' + this.selectedFilters.frequency;
-      break;
+        // sea level has multiple models (CMCC-CM2-VHR4 and EC-Earth3P-HR), so needs model keyword
+        dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.model + '_' + this.selectedFilters.timeRange + '_' + this.selectedFilters.frequency;
+        break;
       case 'wave_climate':
-      // wave climate has only one model, so no model keyword
-      dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.timeRange + '_' + this.selectedFilters.frequency;
-      break;
+        // wave climate has only one model, so no model keyword
+        dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.timeRange + '_' + this.selectedFilters.frequency;
+        break;
       case 'atmospheric_data':
-      // atmospheric data has multiple variables and multiple statistics per variable
-      dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.variable + '_' + this.selectedFilters.statistic;
-      break;      
+        // atmospheric data has multiple variables and multiple statistics per variable
+        dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.variable + '_' + this.selectedFilters.statistic;
+        break;
       default:
-      dataId = '';
-      break;
+        dataId = '';
+        break;
     }
     this.fetchImages(this.selectedFilters.city, this.selectedFilters.service, dataId);
     // uncomment to switch between images and timeseries
@@ -479,15 +494,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         this.selectedFilters.frequency = 'hourly';
         dataId = this.selectedFilters.site + '_' + service + '_' + this.selectedFilters.model + '_' + this.selectedFilters.timeRange + '_' + this.selectedFilters.frequency;
         break;
-        case 'atmospheric_data':
-          this.selectedFilters.city = city;
-          this.selectedFilters.service = service;
-          //@ts-ignore
-          this.selectedFilters.site = layer.feature.properties.site;
-          this.selectedFilters.variable = 'air_temperature';
-          this.selectedFilters.statistic = 'daily_max';
-          dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.variable + '_' + this.selectedFilters.statistic;
-          break;
+      case 'atmospheric_data':
+        this.selectedFilters.city = city;
+        this.selectedFilters.service = service;
+        //@ts-ignore
+        this.selectedFilters.site = layer.feature.properties.site;
+        this.selectedFilters.variable = 'air_temperature';
+        this.selectedFilters.statistic = 'daily_max';
+        dataId = this.selectedFilters.site + '_' + this.selectedFilters.service + '_' + this.selectedFilters.variable + '_' + this.selectedFilters.statistic;
+        break;
       default:
         break;
     }

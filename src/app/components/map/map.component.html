@@ -12,9 +12,8 @@
       <div style="display: flex; flex-direction: column;height: fit-content;">
         <app-line-chart *ngIf="timeseries" [multi]="[timeseries]" [dataServiceName]="titleTimeseries"
           [description]="selectedServiceDescription" (downloadCsvButtonClicked)="downloadTimeseriesCsv()"
-          (downloadJpgButtonClicked)="downloadTimeseriesJpg()"
-          [selectedFilters]="selectedFilters" (filterChange)="onFilterChange($event)"
-          [chartImage]="chartImage"></app-line-chart>
+          (downloadJpgButtonClicked)="downloadTimeseriesJpg()" [selectedFilters]="selectedFilters"
+          (filterChange)="onFilterChange($event)" [chartImage]="chartImage"></app-line-chart>
       </div>
     </mat-drawer>
 
@@ -31,13 +30,6 @@
                     </mat-panel-title>
                   </mat-expansion-panel-header>
                   <mat-panel-description>
-                    <!-- <mat-radio-group formControlName="city">
-                      <div style="display: flex; flex-direction: column; max-height: 200px; overflow-y: auto;">
-                        <mat-radio-button *ngFor="let city of cityNames" [value]="city">
-                          {{ city }}
-                        </mat-radio-button>
-                      </div>
-                    </mat-radio-group> -->
                     <mat-form-field>
                       <mat-label>Select City</mat-label>
                       <mat-select formControlName="city">
