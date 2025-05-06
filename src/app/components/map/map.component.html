@@ -13,7 +13,7 @@
         <app-line-chart *ngIf="timeseries" [multi]="[timeseries]" [dataServiceName]="titleTimeseries"
           [description]="selectedServiceDescription" (downloadCsvButtonClicked)="downloadTimeseriesCsv()"
           (downloadJpgButtonClicked)="downloadTimeseriesJpg()" [selectedFilters]="selectedFilters"
-          (filterChange)="onFilterChange($event)" [chartImage]="chartImage"></app-line-chart>
+          [activeTabs]="activeTabs" (filterChange)="onFilterChange($event)" [chartImage]="chartImage"></app-line-chart>
       </div>
     </mat-drawer>
 
@@ -22,7 +22,7 @@
         <div class="map" id="map" style="height: 100%; display: flex; gap: 20px; flex-wrap: wrap;">
           <div class="panel-container" style="margin: 20px;">
             <form [formGroup]="cityForm">
-              <mat-accordion>
+              <mat-accordion (dblclick)="$event.stopPropagation()">
                 <mat-expansion-panel #citiesPanel>
                   <mat-expansion-panel-header>
                     <mat-panel-title>
@@ -36,6 +36,7 @@
                         <mat-option *ngFor="let city of cityNames" [value]="city">
                           {{ city }}
                         </mat-option>
+
                       </mat-select>
                     </mat-form-field>
                   </mat-panel-description>
